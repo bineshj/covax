@@ -9,8 +9,8 @@ dtime = datetime.now().strftime("%d-%m-%Y")
 
 #Set frequency with seconds to check vaccine availablity
 frequency = 120
-# set PINCODE below with 6 digit numeric value
-PINCODE = "6-digit-number"
+# set PINCODE with comma seprated values
+PINCODE = ["123456","234567"]
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
 #set your personal gmail address, make sure you allow less secure application to use gmail ..
@@ -45,21 +45,28 @@ def send_email(sub, emailTolist):
 headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
 
 while (True):
-    print ("Trying at cowin site at :     " + str(datetime.now().strftime("%H:%M:%S")))
-    weburl = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=" + str(PINCODE) +  "&date=" + dtime
-    r =requests.get(weburl, headers=headers)
-    res = r.json()
-    centers = res['centers']
-    for cen in centers:
-        
-        for ses in cen['sessions']:
-            if ses['min_age_limit'] < 19:
-                print ("Location----------------:     " + cen['address'])
-                print ("available_capacity------:     " + str(ses['available_capacity']))
-                if ses['available_capacity'] > 0:
-                    sub = "Covax update: Avaiable at : " + cen['address']
-                    send_email(sub, EMAIL_TO)
-                    print ("Vaccine available, mail sent")
-    print ("\n\nNo vaccine available.... trying after " + str(frequency) + " seconds\n\n")
-    print ("---------------------------------------------------------------")
-    time.sleep(frequency)
+    try:
+        for eachpin in PINCODE:
+            print ("Trying at cowin site at PINCODE :  " + eachpin +  "\nAt ::  " + str(datetime.now().strftime("%H:%M:%S")))
+            weburl = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=" + eachpin +  "&date=" + dtime
+            r =requests.get(weburl, headers=headers)
+            res = r.json()
+            centers = res['centers']
+            #print (centers)
+            for cen in centers:
+                
+                for ses in cen['sessions']:
+                    if ses['min_age_limit'] < 19:
+                        print ("Location----------------:     " + cen['address'])
+                        print ("available_capacity------:     " + str(ses['available_capacity']))
+                        if ses['available_capacity'] > 0:
+                            sub = "Covax update: Avaiable at : " + cen['address']
+                            send_email(sub, EMAIL_TO)
+                            print ("Vaccine available, mail sent")
+                            subprocess.call("osascript -e '{}'".format(sub), shell=True)
+        print ("\n\nNo vaccine available.... trying after " + str(frequency) + " seconds\n\n")
+        print ("---------------------------------------------------------------")
+        time.sleep(frequency)
+    except:
+        print ("\n.......  Some exception occured.... continuing.. \n")
+        pass
