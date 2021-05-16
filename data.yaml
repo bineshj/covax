@@ -1,0 +1,25 @@
+locations:
+  search_in:
+    - 335001
+    - 335037
+    - 335002
+    - 335022
+    - 335073
+  exclude:
+    - 335707
+    - 335024
+    - 335073
+    - 335701
+    - 335051
+    - 342025
+    - 335021
+frequency:
+  - 30
+district_id:
+  - 509
+EMAIL_TO:
+  - "abc1@gmail.com"
+  - "abc2@yahoo.com"
+  - "abc3@gmail.com"
+EMAIL_FROM:
+  - "abc1@gmail.com"
