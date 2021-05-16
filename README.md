@@ -13,4 +13,9 @@ python3.7 abc.py -u "xyz@gmail.com" -p "xyzpassword"
 
 Note: Only gmail account supported to run script. Pleasee allow gmail setting to allow less secured app as ON. Make sure to revert it back once you do not wish to run this script.
 
+To get list of distrct ID:
+1. In browser put url: https://cdn-api.co-vin.in/api/v2/admin/location/states
+2. get state id and append in this url: https://cdn-api.co-vin.in/api/v2/admin/location/districts/<state_id>
+e.g https://cdn-api.co-vin.in/api/v2/admin/location/districts/29 --> will show all district of Rajasthan, state_id is 29
+
 Be relax script will keep on checking vaccine availablity status based on frequency set.
