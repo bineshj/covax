@@ -100,6 +100,8 @@ while (True):
                 send_email("Vaccination available", EMAIL_TO, body )
                 #subprocess.call("osascript -e '{}'".format(body), shell=True)
                 print ("Vaccine available, mail sent")
+                print ("\n" + 
+                str(datetime.now().strftime("%H:%M:%S")) + "\nTrying again after " + str(frequency) + " seconds\n\n")
             else:
                 print ("\n" + 
                 str(datetime.now().strftime("%H:%M:%S")) + "\nNo vaccine available.... trying after " + str(frequency) + " seconds\n\n")
