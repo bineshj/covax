@@ -18,4 +18,4 @@ To get list of distrct ID:
 2. get state id and append in this url: https://cdn-api.co-vin.in/api/v2/admin/location/districts/<state_id>
 e.g https://cdn-api.co-vin.in/api/v2/admin/location/districts/29 --> will show all district of Rajasthan, state_id is 29
 
-Be relax script will keep on checking vaccine availablity status based on frequency set.
+Be relax script will keep on checking vaccine availablity status based on frequency set. 
